@@ -1,0 +1,13 @@
+
+.app{
+    margin-right: 2px;
+    margin-left: 2px;
+    display: grid;
+    grid-template-columns: var(--aside-widht) 1fr;
+    grid-template-rows: 
+        var(--header-height)
+        1fr
+        var(--footer-height);
+    height: 100vh;
+    background-color: #7eaa94;
+}

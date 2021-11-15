@@ -1,0 +1,1 @@
+O propósito deste projeto é criar uma aplicação completa de cálculo de chamadas. Sua componetização foi feita em ReactJS e a api backend usa nodeJS. Atualmente o objetivo é estabelcer uma conexão com o banco de dados, onde os dados para o cálculo das ligações ficarão armazenados. 

@@ -1,0 +1,60 @@
+"paths": {
+    "/buscar/ddd": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Deu certo",
+            "schema": {
+              "$ref": "#/definitions/ddd"
+            }
+          },
+          "404": {
+            "description": "ddd não encontrado"
+          },
+          "500": {
+            "description": "Num pagou"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ddd": {
+      "type": "object",
+      "properties": {
+        "origem": {
+          "type": "array",
+          "xml": {
+            "name": "origem",
+            "wrapped": true
+          },
+          "items": {
+            "type": "integer",
+            "example": "[11,12,13]"
+          }
+        },
+        "destino": {
+          "type": "array",
+          "xml": {
+            "name": "origem",
+            "wrapped": true
+          },
+          "items": {
+            "type": "integer",
+            "example": "[11,12,13]"
+          }
+        },
+        "planosFalemais": {
+          "type": "array",
+          "xml": {
+            "name": "origem",
+            "wrapped": true
+          },
+          "items": {
+            "type": "string",
+            "example": "[FaleMais30, FaleMais60, FaleMais120]"
+          }
+        }
+      }
+    }
+  },

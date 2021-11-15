@@ -1,0 +1,195 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Vxtell",
+        "description": "Api para simular as tarifas de ligação.",
+        "version": "1.0.1"
+    },
+    "server": [
+        {
+            "url": "http://localhost:3001",
+            "description": "Api de teste."
+        }
+    ],
+    "paths": {
+        "/buscar/ddd": {
+            "get": {
+                "sumary": "Dados dos DDDs e planos",
+                "description": " Rota para buscar os dados referentes aos DDDs (origem e destino) e planos Vxtell faleMais.",
+                "tags": [
+                    "DDD"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deu certo",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/BuscarDDDResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/ErroInterno"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/simulacao": {
+            "post": {
+                "sumary": "Simula o valor da ligação com e sem o plano Vxtell.",
+                "description": "Simula o valor da ligação com e sem o plano Vxtell.",
+                "tags": [
+                    "Simulacao"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SimulationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Deu certo",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/SimulationResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Informação obrigatória não selecionada ou inserida.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "DDD de origem precisa ser selecionado."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/ErroInterno"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "SimulationRequest": {
+                "type": "object",
+                "properties": {
+                    "origem": {
+                        "type": "number",
+                        "example": 11
+                    },
+                    "destino": {
+                        "type": "number",
+                        "example": 16
+                    },
+                    "planosFalemais": {
+                        "type": "string",
+                        "example": "FaleMais30"
+                    },
+                    "tempo": {
+                        "type": "number",
+                        "example": 40
+                    }
+                }
+            },
+            "SimulationResponse": {
+                "type": "object",
+                "properties": {
+                    "valorComPlano": {
+                        "type": "number",
+                        "example": 50
+                    },
+                    "valorSemPlano": {
+                        "type": "number",
+                        "example": 70
+                    }
+                }
+            },
+            "BuscarDDDResponse": {
+                "type": "object",
+                "properties": {
+                    "origem": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        },
+                        "example": [
+                            11,
+                            16,
+                            17,
+                            18
+                        ]
+                    },
+                    "destino": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        },
+                        "example": [
+                            11,
+                            16,
+                            17,
+                            18
+                        ]
+                    },
+                    "planosFalemais": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "example": [
+                            "FaleMais30, FaleMais60, FaleMais120"
+                        ]
+                    }
+                }
+            },
+            "ErroInterno": {
+                "type": "object",
+                "properties": {
+                    "msgErro": {
+                        "type": "string",
+                        "example": "Erro interno do servidor"
+                    }
+                }
+            }
+        }
+    }
+}
